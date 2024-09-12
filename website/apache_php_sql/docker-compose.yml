@@ -1,0 +1,43 @@
+services:
+
+  phpapache:
+    container_name: web-phpapache
+    build: ./docker/php_apache/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql_db
+    volumes:
+      - .:/var/www/html/
+    environment:
+      Runtime: docker
+
+  mysql_db:
+    container_name: web_sql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: www_your_database
+      MYSQL_USER: your_username
+      MYSQL_PASSWORD: your_password
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    container_name: web-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    links:
+      - mysql_db
+    environment:
+      PMA_HOST: mysql_db
+
+
+
+
+
+
+  
+      
