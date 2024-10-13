@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y vim git wget p7zip-full
 
 RUN pip install jupyterlab-language-pack-zh-TW jlab-enhanced-cell-toolbar
 
+RUN pip install matplotlib pandas
+
 WORKDIR /jupyter
 
 # 設定 Jupyter 的端口和 Token
