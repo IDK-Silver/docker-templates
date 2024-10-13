@@ -1,0 +1,25 @@
+FROM tensorflow/tensorflow:2.16.2-gpu
+
+
+# 安裝 Jupyter
+RUN pip install jupyter
+
+RUN pip install torch torchvision torchaudio
+
+RUN pip install scikit-learn
+
+RUN apt-get update && apt-get install -y vim git wget p7zip-full
+
+RUN pip install jupyterlab-language-pack-zh-TW jlab-enhanced-cell-toolbar
+
+WORKDIR /jupyter
+
+# 設定 Jupyter 的端口和 Token
+ENV JUPYTER_PORT=8888
+ENV JUPYTER_TOKEN=
+
+# 暴露 Jupyter 端口
+EXPOSE ${JUPYTER_PORT}
+
+# 設定啟動命令
+CMD ["sh", "-c", "jupyter notebook --ip=0.0.0.0 --port=${JUPYTER_PORT} --no-browser --allow-root --IdentityProvider.token=${JUPYTER_TOKEN}"]

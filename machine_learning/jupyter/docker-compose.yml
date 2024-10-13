@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  jupyter:
+    container_name: machine-learning-jupyter
+    image: ml-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/jupyter
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      JUPYTER_TOKEN: your_token
+
